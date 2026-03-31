@@ -1,49 +1,70 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+// App shell — add global state or router-view here
 </script>
 
 <template>
-  <div>
-    <a href="https://www.electronjs.org/" target="_blank">
-      <img src="./assets/electron.svg" class="logo electron" alt="Electron logo" />
-    </a>
-    <a href="https://vitejs.dev/" target="_blank">
-      <img src="./assets/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Electron + Vite + Vue" />
-  <div class="flex-center">
-    Place static files into the <code>/public</code> folder
-    <img style="width: 2.4em; margin-left: .4em;" src="/logo.svg" alt="Logo">
+  <div class="app-shell">
+    <!-- ── Titlebar ─────────────────────────────────────────── -->
+    <header class="app-titlebar">
+      <span class="app-title">{{ appTitle }}</span>
+    </header>
+
+    <!-- ── Main content ─────────────────────────────────────── -->
+    <main class="app-main">
+      <!-- Replace with <router-view /> when using vue-router -->
+      <div class="page-container">
+        <div class="card">
+          <div class="card-header">Getting Started</div>
+          <div class="card-body">
+            <p class="text-muted">Edit <code>src/App.vue</code> to begin building your app.</p>
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
 </template>
 
-<style>
-.flex-center {
+<script lang="ts">
+export default {
+  computed: {
+    appTitle(): string {
+      return 'ElectronTemplate'
+    },
+  },
+}
+</script>
+
+<style lang="less">
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.app-titlebar {
+  height: 40px;
+  min-height: 40px;
+  background: #ffffff;
+  border-bottom: 1px solid #ebeef5;
   display: flex;
   align-items: center;
-  justify-content: center;
+  padding: 0 16px;
+  // Enable OS drag to move the window
+  -webkit-app-region: drag;
+  user-select: none;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.app-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #303133;
 }
 
-.logo.electron:hover {
-  filter: drop-shadow(0 0 2em #9FEAF9);
-}
-
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.app-main {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
 }
 </style>

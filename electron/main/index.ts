@@ -44,16 +44,18 @@ const indexHtml = path.join(RENDERER_DIST, 'index.html')
 
 async function createWindow() {
   win = new BrowserWindow({
-    title: 'Main window',
-    icon: path.join(process.env.VITE_PUBLIC, 'favicon.ico'),
+    title: 'ElectronTemplate',
+    width: 1280,
+    height: 800,
+    minWidth: 960,
+    minHeight: 600,
+    icon: path.join(process.env.VITE_PUBLIC, 'logo.svg'),
+    // Frameless window: set frame: false and use CSS -webkit-app-region: drag for titlebar
+    // frame: false,
     webPreferences: {
       preload,
-      // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
-      // nodeIntegration: true,
-
-      // Consider using contextBridge.exposeInMainWorld
-      // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
-      // contextIsolation: false,
+      // nodeIntegration: true,    // only enable if you need Node.js in renderer
+      // contextIsolation: false,  // keep true for security
     },
   })
 
@@ -102,19 +104,5 @@ app.on('activate', () => {
   }
 })
 
-// New window example arg: new windows url
-ipcMain.handle('open-win', (_, arg) => {
-  const childWindow = new BrowserWindow({
-    webPreferences: {
-      preload,
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
-  })
-
-  if (VITE_DEV_SERVER_URL) {
-    childWindow.loadURL(`${VITE_DEV_SERVER_URL}#${arg}`)
-  } else {
-    childWindow.loadFile(indexHtml, { hash: arg })
-  }
-})
+// Register your IPC handlers here
+// ipcMain.handle('your-channel', async (event, ...args) => { ... })
