@@ -1,39 +1,102 @@
 /* ============================================================
    Global Design Tokens & Resets
-   Modeled after Element Plus design system
+   Inspired by BMW CI2020 design language
+   — Angular geometry, precision typography, restrained color
    ============================================================ */
 
 :root {
-  /* --- Element Plus primary color overrides --- */
-  --el-color-primary:         #4080ff;
-  --el-color-primary-light-3: #6fa3ff;
-  --el-color-primary-light-5: #9fc0ff;
-  --el-color-primary-light-7: #cfdeff;
-  --el-color-primary-light-8: #dfe8ff;
-  --el-color-primary-light-9: #eef2ff;
-  --el-color-primary-dark-2:  #2e6be0;
+  /* -----------------------------------------------------------
+     Brand Color Tokens  (BMW-inspired)
+     Accent used ONLY for interactive states — never decorative
+  ----------------------------------------------------------- */
+  --color-accent:        #1c69d4;   /* BMW Blue — primary interactive accent */
+  --color-accent-focus:  #0653b6;   /* Focus / active states */
+  --color-accent-light:  #cfdeff;   /* Subtle tint for hover backgrounds */
 
-  /* --- Typography --- */
-  font-family: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB",
-               Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
+  /* -----------------------------------------------------------
+     Neutral Scale
+  ----------------------------------------------------------- */
+  --color-bg:            #ffffff;   /* Primary surface — pure white */
+  --color-bg-secondary:  #f5f5f5;   /* Sidebar / panel backgrounds */
+  --color-bg-tertiary:   #ebebeb;   /* Subtle dividers, striped rows */
+
+  --color-text:          #262626;   /* Primary text — near black */
+  --color-text-secondary:#757575;   /* Secondary / meta text */
+  --color-text-muted:    #bbbbbb;   /* Tertiary, disabled, placeholder */
+
+  --color-border:        #e0e0e0;   /* Default border */
+  --color-border-strong: #bdbdbd;   /* Emphasized border / separator */
+
+  /* -----------------------------------------------------------
+     Element Plus primary overrides  (maps to accent)
+  ----------------------------------------------------------- */
+  --el-color-primary:         var(--color-accent);
+  --el-color-primary-light-3: #5a96e0;
+  --el-color-primary-light-5: #8eb8eb;
+  --el-color-primary-light-7: #c2d9f5;
+  --el-color-primary-light-8: #d6e7f9;
+  --el-color-primary-light-9: #ebf3fc;
+  --el-color-primary-dark-2:  var(--color-accent-focus);
+
+  /* -----------------------------------------------------------
+     Typography
+     Chinese-first stack; tight line-heights throughout
+  ----------------------------------------------------------- */
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+               Helvetica, Arial, sans-serif;
+  font-size:   16px;          /* Base = 1rem (BMW uses 16px body) */
+  line-height: 1.20;          /* Tight — BMW range 1.15–1.30 */
   font-weight: 400;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* --- App background --- */
-  background-color: #f0f2f5;
-  color: #303133;
+  /* -----------------------------------------------------------
+     App surface
+  ----------------------------------------------------------- */
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text);
 
-  /* --- Layout tokens --- */
-  --page-padding-x: 16px;
-  --page-padding-y: 12px;
-  --card-radius:    10px;
-  --card-shadow:    0 2px 8px rgba(0, 0, 0, 0.06);
-  --card-border:    #ebeef5;
+  /* -----------------------------------------------------------
+     Layout Spacing  (8px base grid)
+     Scale: 4 8 12 16 20 24 32 40 48 56 64
+  ----------------------------------------------------------- */
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-14: 56px;
+
+  --page-padding-x: var(--space-4);   /* 16px */
+  --page-padding-y: var(--space-3);   /* 12px */
+
+  /* -----------------------------------------------------------
+     Geometry — BMW uses 0 radius everywhere
+     Only minimal radius allowed for app-shell chrome (1px)
+     to distinguish from pure web; set --radius-base: 0
+     if you want full BMW angularity
+  ----------------------------------------------------------- */
+  --radius-none:   0px;
+  --radius-base:   0px;     /* Sharp corners — core BMW identity */
+  --radius-dialog: 0px;
+
+  /* -----------------------------------------------------------
+     Elevation — minimal; depth via contrast not shadows
+  ----------------------------------------------------------- */
+  --shadow-none:  none;
+  --shadow-card:  0 1px 4px rgba(0, 0, 0, 0.08);   /* Subtle only */
+  --shadow-panel: 0 2px 8px rgba(0, 0, 0, 0.10);
+
+  /* Legacy aliases for backward compatibility */
+  --card-radius:  var(--radius-base);
+  --card-shadow:  var(--shadow-card);
+  --card-border:  var(--color-border);
 }
 
 /* ============================================================
@@ -63,28 +126,80 @@ body {
 }
 
 /* ============================================================
-   Card System  (used across all pages)
+   Typography Scale
+   Weight extremes: 300 (display), 400 (body), 700 (emphasis), 900 (nav)
+   ============================================================ */
+
+.text-display {
+  font-size: 2.25rem;   /* 36px — section hero */
+  font-weight: 300;
+  line-height: 1.20;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+}
+
+.text-heading {
+  font-size: 1.25rem;   /* 20px */
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--color-text);
+}
+
+.text-subheading {
+  font-size: 1rem;      /* 16px */
+  font-weight: 700;
+  line-height: 1.20;
+  color: var(--color-text);
+}
+
+.text-body {
+  font-size: 1rem;      /* 16px */
+  font-weight: 400;
+  line-height: 1.20;
+  color: var(--color-text);
+}
+
+.text-meta {
+  font-size: 0.875rem;  /* 14px */
+  font-weight: 400;
+  line-height: 1.20;
+  color: var(--color-text-secondary);
+}
+
+.text-caption {
+  font-size: 0.75rem;   /* 12px */
+  font-weight: 400;
+  line-height: 1.20;
+  color: var(--color-text-muted);
+}
+
+/* ============================================================
+   Card System
+   Sharp corners — no radius; depth via border + subtle shadow
    ============================================================ */
 
 .card {
-  background: #ffffff;
-  border: 1px solid var(--card-border);
-  border-radius: var(--card-radius);
-  box-shadow: var(--card-shadow);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  box-shadow: var(--shadow-card);
 }
 
 .card-header {
-  padding: 10px 20px;
-  background: #fafbfc;
-  border-bottom: 1px solid var(--card-border);
-  border-radius: var(--card-radius) var(--card-radius) 0 0;
-  font-weight: 500;
-  color: #303133;
-  font-size: 14px;
+  padding: var(--space-2) var(--space-5);   /* 8px 20px */
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0;
+  font-size: 0.875rem;  /* 14px */
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text);
 }
 
 .card-body {
-  padding: 14px 20px;
+  padding: var(--space-4) var(--space-5);   /* 16px 20px */
 }
 
 /* ============================================================
@@ -96,25 +211,27 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--space-4);   /* 16px */
   overflow-y: auto;
 }
 
 /* ============================================================
-   Section Divider
+   Section Header  (divider label)
    ============================================================ */
 
 .section-header {
-  font-size: 13px;
-  font-weight: 500;
-  color: #909399;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #f0f2f5;
-  margin-bottom: 12px;
+  font-size: 0.6875rem;  /* 11px */
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--space-3);
 }
 
 /* ============================================================
-   Utility
+   Utility Classes
    ============================================================ */
 
 .flex-center {
@@ -129,60 +246,69 @@ body {
   justify-content: space-between;
 }
 
-.text-muted {
-  color: #909399;
-}
-
-.text-primary {
-  color: var(--el-color-primary);
-}
+.text-muted    { color: var(--color-text-muted); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-primary  { color: var(--color-accent); }
+.text-upper    { text-transform: uppercase; letter-spacing: 0.04em; }
 
 /* ============================================================
    Element Plus Global Overrides
+   BMW: sharp corners everywhere; accent color aligned
    ============================================================ */
 
-/* Rounded buttons */
+/* Buttons — sharp rectangular, weight 700 primary */
 .el-button {
-  border-radius: 6px !important;
+  border-radius: var(--radius-none) !important;
+  font-weight: 700;
+  letter-spacing: 0.03em;
 }
 
-/* Rounded inputs */
+.el-button--default {
+  font-weight: 400;
+}
+
+/* Inputs — sharp corners */
 .el-input__wrapper {
-  border-radius: 6px !important;
-  box-shadow: 0 0 0 1px #dcdfe6 inset;
-  transition: box-shadow 0.2s;
+  border-radius: var(--radius-none) !important;
+  box-shadow: 0 0 0 1px var(--color-border) inset;
+  transition: box-shadow 0.15s;
 }
 
 .el-input__wrapper:hover {
-  box-shadow: 0 0 0 1px var(--el-color-primary-light-3) inset !important;
+  box-shadow: 0 0 0 1px var(--color-text-secondary) inset !important;
 }
 
 .el-input__wrapper.is-focus {
-  box-shadow: 0 0 0 1px var(--el-color-primary) inset !important;
+  box-shadow: 0 0 0 1px var(--color-accent) inset !important;
 }
 
-/* Rounded select */
+/* Select */
 .el-select .el-input__wrapper {
-  border-radius: 6px !important;
+  border-radius: var(--radius-none) !important;
 }
 
 /* Table header */
 .el-table th.el-table__cell {
-  background-color: #f8f9fc !important;
+  background-color: var(--color-bg-secondary) !important;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
 }
 
-/* Rounded dialogs */
+/* Dialog — sharp corners */
 .el-dialog {
-  border-radius: 12px !important;
+  border-radius: var(--radius-none) !important;
 }
 
 .el-dialog__header {
-  border-bottom: 1px solid #f0f2f5;
-  padding-bottom: 14px;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-4);
 }
 
-/* Rounded popovers & dropdowns */
+/* Popovers & dropdowns */
 .el-popover.el-popper,
 .el-dropdown__popper {
-  border-radius: 8px !important;
+  border-radius: var(--radius-none) !important;
 }

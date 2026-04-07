@@ -46,20 +46,22 @@ export default {
 .app-titlebar {
   height: 40px;
   min-height: 40px;
-  background: #ffffff;
-  border-bottom: 1px solid #ebeef5;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
   display: flex;
   align-items: center;
-  padding: 0 16px;
+  padding: 0 var(--space-4);  // 0 16px
   // Enable OS drag to move the window
   -webkit-app-region: drag;
   user-select: none;
 }
 
 .app-title {
-  font-size: 14px;
-  font-weight: 500;
-  color: #303133;
+  font-size: 0.6875rem;  // 11px
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text);
 }
 
 .app-main {
