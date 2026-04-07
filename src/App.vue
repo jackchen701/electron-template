@@ -4,7 +4,7 @@
 
 <template>
   <div class="app-shell">
-    <!-- ── Titlebar ─────────────────────────────────────────── -->
+    <!-- ── Titlebar (Apple-style translucent nav) ───────────── -->
     <header class="app-titlebar">
       <span class="app-title">{{ appTitle }}</span>
     </header>
@@ -44,24 +44,25 @@ export default {
 }
 
 .app-titlebar {
-  height: 40px;
-  min-height: 40px;
-  background: var(--color-bg);
-  border-bottom: 1px solid var(--color-border);
+  height: 48px;                          // Apple nav height
+  min-height: 48px;
+  background: var(--color-nav-bg);       // rgba(0,0,0,0.8) translucent glass
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: none;                   // Apple nav has no border
   display: flex;
   align-items: center;
-  padding: 0 var(--space-4);  // 0 16px
-  // Enable OS drag to move the window
+  padding: 0 var(--space-8);             // 0 32px — Apple uses generous nav padding
   -webkit-app-region: drag;
   user-select: none;
 }
 
 .app-title {
-  font-size: 0.6875rem;  // 11px
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-text);
+  font-family: var(--font-text);
+  font-size: 0.875rem;   // 14px
+  font-weight: 600;
+  letter-spacing: -0.224px;
+  color: rgba(255, 255, 255, 0.9);       // White text on dark glass nav
 }
 
 .app-main {

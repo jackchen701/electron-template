@@ -1,52 +1,89 @@
 /* ============================================================
    Global Design Tokens & Resets
-   Inspired by BMW CI2020 design language
-   — Angular geometry, precision typography, restrained color
+   Inspired by Apple design language
+   — Cinematic sections, SF Pro typography, singular blue accent
    ============================================================ */
 
 :root {
   /* -----------------------------------------------------------
-     Brand Color Tokens  (BMW-inspired)
-     Accent used ONLY for interactive states — never decorative
+     Brand Color Tokens  (Apple-inspired)
+     Apple Blue is the ONLY chromatic accent — reserved exclusively
+     for interactive elements (CTAs, links, focus rings)
   ----------------------------------------------------------- */
-  --color-accent:        #1c69d4;   /* BMW Blue — primary interactive accent */
-  --color-accent-focus:  #0653b6;   /* Focus / active states */
-  --color-accent-light:  #cfdeff;   /* Subtle tint for hover backgrounds */
+  --color-accent:        #0071e3;   /* Apple Blue — primary interactive accent */
+  --color-accent-focus:  #0071e3;   /* Focus ring color */
+  --color-accent-light:  rgba(0, 113, 227, 0.06);  /* Hover tint on outline buttons */
+
+  --color-link:          #0066cc;   /* Inline text links on light backgrounds */
+  --color-link-dark:     #2997ff;   /* Links on dark section backgrounds */
 
   /* -----------------------------------------------------------
-     Neutral Scale
+     Core Surfaces
+     Binary light/dark rhythm: black for immersive, #f5f5f7 for informational
   ----------------------------------------------------------- */
-  --color-bg:            #ffffff;   /* Primary surface — pure white */
-  --color-bg-secondary:  #f5f5f5;   /* Sidebar / panel backgrounds */
-  --color-bg-tertiary:   #ebebeb;   /* Subtle dividers, striped rows */
-
-  --color-text:          #262626;   /* Primary text — near black */
-  --color-text-secondary:#757575;   /* Secondary / meta text */
-  --color-text-muted:    #bbbbbb;   /* Tertiary, disabled, placeholder */
-
-  --color-border:        #e0e0e0;   /* Default border */
-  --color-border-strong: #bdbdbd;   /* Emphasized border / separator */
+  --color-bg:            #ffffff;   /* White — standard page surface */
+  --color-bg-secondary:  #f5f5f7;   /* Light Gray — alternate sections, cards */
+  --color-bg-dark:       #000000;   /* Pure Black — hero/immersive sections */
 
   /* -----------------------------------------------------------
-     Element Plus primary overrides  (maps to accent)
+     Dark Surface Scale (for cards/containers inside dark sections)
+  ----------------------------------------------------------- */
+  --color-surface-dark-1: #272729;
+  --color-surface-dark-2: #28282a;
+  --color-surface-dark-3: #2a2a2d;
+  --color-surface-dark-4: #242426;
+
+  /* -----------------------------------------------------------
+     Text Scale
+  ----------------------------------------------------------- */
+  --color-text:          #1d1d1f;   /* Near Black — primary text on light */
+  --color-text-secondary: rgba(0, 0, 0, 0.8);  /* Secondary / nav items on light */
+  --color-text-muted:    rgba(0, 0, 0, 0.48);  /* Tertiary, disabled, captions */
+
+  --color-text-on-dark:  #ffffff;   /* Primary text on dark backgrounds */
+  --color-text-on-dark-muted: rgba(255, 255, 255, 0.7);  /* Muted text on dark */
+
+  /* -----------------------------------------------------------
+     Border & Divider
+     Apple almost never uses visible borders on cards/containers
+  ----------------------------------------------------------- */
+  --color-border:        #d2d2d7;   /* Subtle dividers, form input borders */
+  --color-border-strong: #bdbdbd;   /* Emphasized border */
+
+  /* -----------------------------------------------------------
+     Interactive States
+  ----------------------------------------------------------- */
+  --color-button-active: #ededf2;   /* Active/pressed state for light buttons */
+  --color-filter-bg:     #fafafc;   /* Search/filter button backgrounds */
+  --color-overlay:       rgba(210, 210, 215, 0.64);  /* Media control scrims */
+  --color-nav-bg:        rgba(0, 0, 0, 0.8);  /* Navigation glass background */
+
+  /* -----------------------------------------------------------
+     Element Plus primary overrides  (maps to Apple Blue)
   ----------------------------------------------------------- */
   --el-color-primary:         var(--color-accent);
-  --el-color-primary-light-3: #5a96e0;
-  --el-color-primary-light-5: #8eb8eb;
-  --el-color-primary-light-7: #c2d9f5;
-  --el-color-primary-light-8: #d6e7f9;
-  --el-color-primary-light-9: #ebf3fc;
-  --el-color-primary-dark-2:  var(--color-accent-focus);
+  --el-color-primary-light-3: #5a9fe8;
+  --el-color-primary-light-5: #80bcf1;
+  --el-color-primary-light-7: #b3d8f8;
+  --el-color-primary-light-8: #cce6fa;
+  --el-color-primary-light-9: #e5f3fd;
+  --el-color-primary-dark-2:  #005bb5;
 
   /* -----------------------------------------------------------
      Typography
-     Chinese-first stack; tight line-heights throughout
+     SF Pro Display at 20px+, SF Pro Text below 20px
+     System stack falls back to -apple-system / Inter
   ----------------------------------------------------------- */
-  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
-               Helvetica, Arial, sans-serif;
-  font-size:   16px;          /* Base = 1rem (BMW uses 16px body) */
-  line-height: 1.20;          /* Tight — BMW range 1.15–1.30 */
+  --font-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont,
+                  'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-text:    'SF Pro Text', -apple-system, BlinkMacSystemFont,
+                  'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  font-family: var(--font-text);
+  font-size:   17px;          /* Apple body base */
+  line-height: 1.47;          /* Apple body line-height */
   font-weight: 400;
+  letter-spacing: -0.374px;   /* Apple applies negative tracking at all sizes */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -59,8 +96,8 @@
   color: var(--color-text);
 
   /* -----------------------------------------------------------
-     Layout Spacing  (8px base grid)
-     Scale: 4 8 12 16 20 24 32 40 48 56 64
+     Layout Spacing  (8px base grid, dense at small sizes)
+     Scale mirrors Apple's granular micro-adjustment system
   ----------------------------------------------------------- */
   --space-1:   4px;
   --space-2:   8px;
@@ -77,26 +114,33 @@
   --page-padding-y: var(--space-3);   /* 12px */
 
   /* -----------------------------------------------------------
-     Geometry — BMW uses 0 radius everywhere
-     Only minimal radius allowed for app-shell chrome (1px)
-     to distinguish from pure web; set --radius-base: 0
-     if you want full BMW angularity
+     Geometry — Apple border radius scale
+     Micro (5px) → Standard (8px) → Comfortable (11px) →
+     Large (12px) → Full Pill (980px) → Circle (50%)
   ----------------------------------------------------------- */
-  --radius-none:   0px;
-  --radius-base:   0px;     /* Sharp corners — core BMW identity */
-  --radius-dialog: 0px;
+  --radius-none:     0px;
+  --radius-micro:    5px;    /* Small containers, tags */
+  --radius-base:     8px;    /* Buttons, product cards */
+  --radius-comfortable: 11px; /* Search inputs, filter buttons */
+  --radius-large:    12px;   /* Feature panels, lifestyle images */
+  --radius-pill:     980px;  /* CTA "Learn more" / "Shop" pills */
+  --radius-circle:   50%;    /* Media controls */
 
-  /* -----------------------------------------------------------
-     Elevation — minimal; depth via contrast not shadows
-  ----------------------------------------------------------- */
-  --shadow-none:  none;
-  --shadow-card:  0 1px 4px rgba(0, 0, 0, 0.08);   /* Subtle only */
-  --shadow-panel: 0 2px 8px rgba(0, 0, 0, 0.10);
+  --radius-dialog:   12px;
 
-  /* Legacy aliases for backward compatibility */
+  /* Legacy aliases */
   --card-radius:  var(--radius-base);
   --card-shadow:  var(--shadow-card);
   --card-border:  var(--color-border);
+
+  /* -----------------------------------------------------------
+     Elevation — Apple uses shadow extremely sparingly
+     Primary shadow: soft, wide, offset — like studio diffuse light
+  ----------------------------------------------------------- */
+  --shadow-none:  none;
+  --shadow-card:  rgba(0, 0, 0, 0.22) 3px 5px 30px 0px;   /* Elevated product cards */
+  --shadow-panel: rgba(0, 0, 0, 0.22) 3px 5px 30px 0px;
+  --shadow-focus: 0 0 0 3px rgba(0, 113, 227, 0.3);        /* Focus ring glow */
 }
 
 /* ============================================================
@@ -127,62 +171,94 @@ body {
 
 /* ============================================================
    Typography Scale
-   Weight extremes: 300 (display), 400 (body), 700 (emphasis), 900 (nav)
+   SF Pro Display at 20px+, SF Pro Text below
+   Tight negative letter-spacing at every size
    ============================================================ */
 
+/* Display Hero — 56px, product launch headlines */
 .text-display {
-  font-size: 2.25rem;   /* 36px — section hero */
-  font-weight: 300;
-  line-height: 1.20;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  font-family: var(--font-display);
+  font-size: 3.5rem;      /* 56px */
+  font-weight: 600;
+  line-height: 1.07;
+  letter-spacing: -0.28px;
   color: var(--color-text);
 }
 
+/* Section Heading — 40px */
 .text-heading {
-  font-size: 1.25rem;   /* 20px */
-  font-weight: 400;
-  line-height: 1.25;
+  font-family: var(--font-display);
+  font-size: 2.5rem;      /* 40px */
+  font-weight: 600;
+  line-height: 1.10;
+  letter-spacing: -0.28px;
   color: var(--color-text);
 }
 
+/* Tile / Sub-heading — 28px */
 .text-subheading {
-  font-size: 1rem;      /* 16px */
-  font-weight: 700;
-  line-height: 1.20;
+  font-family: var(--font-display);
+  font-size: 1.75rem;     /* 28px */
+  font-weight: 400;
+  line-height: 1.14;
+  letter-spacing: 0.196px;
   color: var(--color-text);
 }
 
+/* Body — 17px standard reading */
 .text-body {
-  font-size: 1rem;      /* 16px */
+  font-family: var(--font-text);
+  font-size: 1.0625rem;   /* 17px */
   font-weight: 400;
-  line-height: 1.20;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
   color: var(--color-text);
 }
 
+/* Body Emphasis — 17px semibold */
 .text-meta {
-  font-size: 0.875rem;  /* 14px */
+  font-family: var(--font-text);
+  font-size: 0.875rem;    /* 14px */
   font-weight: 400;
-  line-height: 1.20;
+  line-height: 1.43;
+  letter-spacing: -0.224px;
   color: var(--color-text-secondary);
 }
 
+/* Caption — 14px */
 .text-caption {
-  font-size: 0.75rem;   /* 12px */
+  font-family: var(--font-text);
+  font-size: 0.875rem;    /* 14px */
   font-weight: 400;
-  line-height: 1.20;
+  line-height: 1.29;
+  letter-spacing: -0.224px;
+  color: var(--color-text-muted);
+}
+
+/* Micro — 12px fine print */
+.text-micro {
+  font-family: var(--font-text);
+  font-size: 0.75rem;     /* 12px */
+  font-weight: 400;
+  line-height: 1.33;
+  letter-spacing: -0.12px;
   color: var(--color-text-muted);
 }
 
 /* ============================================================
    Card System
-   Sharp corners — no radius; depth via border + subtle shadow
+   Apple: no borders, rounded 8px, shadow only on elevated cards
    ============================================================ */
 
 .card {
   background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-base);
+  border: none;
+  border-radius: var(--radius-base);    /* 8px */
+  box-shadow: none;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
   box-shadow: var(--shadow-card);
 }
 
@@ -190,11 +266,11 @@ body {
   padding: var(--space-2) var(--space-5);   /* 8px 20px */
   background: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
-  border-radius: 0;
-  font-size: 0.875rem;  /* 14px */
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  border-radius: var(--radius-base) var(--radius-base) 0 0;
+  font-family: var(--font-text);
+  font-size: 0.875rem;    /* 14px */
+  font-weight: 600;
+  letter-spacing: -0.224px;
   color: var(--color-text);
 }
 
@@ -217,14 +293,16 @@ body {
 
 /* ============================================================
    Section Header  (divider label)
+   Apple: uppercase micro text with subtle divider
    ============================================================ */
 
 .section-header {
-  font-size: 0.6875rem;  /* 11px */
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-family: var(--font-text);
+  font-size: 0.75rem;     /* 12px */
+  font-weight: 600;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--color-text-secondary);
+  color: var(--color-text-muted);
   padding-bottom: var(--space-2);
   border-bottom: 1px solid var(--color-border);
   margin-bottom: var(--space-3);
@@ -246,32 +324,44 @@ body {
   justify-content: space-between;
 }
 
-.text-muted    { color: var(--color-text-muted); }
-.text-secondary { color: var(--color-text-secondary); }
-.text-primary  { color: var(--color-accent); }
-.text-upper    { text-transform: uppercase; letter-spacing: 0.04em; }
+.text-muted      { color: var(--color-text-muted); }
+.text-secondary  { color: var(--color-text-secondary); }
+.text-primary    { color: var(--color-accent); }
+.text-on-dark    { color: var(--color-text-on-dark); }
+.text-link       { color: var(--color-link); }
+.text-link-dark  { color: var(--color-link-dark); }
 
 /* ============================================================
    Element Plus Global Overrides
-   BMW: sharp corners everywhere; accent color aligned
+   Apple: pill/rounded corners, Apple Blue accent, SF Pro fonts
    ============================================================ */
 
-/* Buttons — sharp rectangular, weight 700 primary */
+/* Buttons — rounded Apple style */
 .el-button {
-  border-radius: var(--radius-none) !important;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-}
-
-.el-button--default {
+  border-radius: var(--radius-base) !important;  /* 8px */
+  font-family: var(--font-text);
   font-weight: 400;
+  letter-spacing: -0.374px;
 }
 
-/* Inputs — sharp corners */
+.el-button--primary {
+  background-color: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
+}
+
+.el-button--primary:hover {
+  opacity: 0.88;
+  background-color: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
+}
+
+/* Inputs — comfortable rounded corners, Apple focus ring */
 .el-input__wrapper {
-  border-radius: var(--radius-none) !important;
+  border-radius: var(--radius-base) !important;  /* 8px */
   box-shadow: 0 0 0 1px var(--color-border) inset;
   transition: box-shadow 0.15s;
+  font-family: var(--font-text);
+  letter-spacing: -0.374px;
 }
 
 .el-input__wrapper:hover {
@@ -279,36 +369,40 @@ body {
 }
 
 .el-input__wrapper.is-focus {
-  box-shadow: 0 0 0 1px var(--color-accent) inset !important;
+  box-shadow: 0 0 0 1px var(--color-accent) inset,
+              0 0 0 3px rgba(0, 113, 227, 0.2) !important;
 }
 
 /* Select */
 .el-select .el-input__wrapper {
-  border-radius: var(--radius-none) !important;
+  border-radius: var(--radius-base) !important;
 }
 
 /* Table header */
 .el-table th.el-table__cell {
   background-color: var(--color-bg-secondary) !important;
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--color-text-secondary);
+  font-family: var(--font-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: -0.12px;
+  color: var(--color-text-muted);
 }
 
-/* Dialog — sharp corners */
+/* Dialog — large radius Apple style */
 .el-dialog {
-  border-radius: var(--radius-none) !important;
+  border-radius: var(--radius-dialog) !important;
 }
 
 .el-dialog__header {
   border-bottom: 1px solid var(--color-border);
   padding-bottom: var(--space-4);
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.28px;
 }
 
 /* Popovers & dropdowns */
 .el-popover.el-popper,
 .el-dropdown__popper {
-  border-radius: var(--radius-none) !important;
+  border-radius: var(--radius-base) !important;  /* 8px */
 }
